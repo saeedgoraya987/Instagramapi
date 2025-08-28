@@ -1,0 +1,13 @@
+{
+  "name": "instagram-osint-api",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@sparticuz/chromium-min": "^123.0.1",
+    "puppeteer-core": "^22.15.0"
+  }
+}
