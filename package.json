@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "engines": { "node": ">=20" },
+  "engines": { "node": "24.7.0" },
   "dependencies": {
     "@sparticuz/chromium-min": "^123.0.1",
     "puppeteer-core": "^22.15.0"
