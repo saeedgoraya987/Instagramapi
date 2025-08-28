@@ -1,0 +1,9 @@
+{
+  "functions": {
+    "api/profile/[username].js": {
+      "runtime": "nodejs18.x",
+      "maxDuration": 60,
+      "memory": 1024
+    }
+  }
+}
