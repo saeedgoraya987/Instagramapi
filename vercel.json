@@ -5,5 +5,11 @@
       "src": "api/**/*.js",
       "use": "@vercel/node"
     }
-  ]
+  ],
+  "functions": {
+    "api/**/*.js": {
+      "maxDuration": 60,
+      "memory": 1024
+    }
+  }
 }
