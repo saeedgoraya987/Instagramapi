@@ -1,12 +1,11 @@
-// Vercel Node.js Serverless Function: GET /api/profile/:username
+// Vercel Node.js Serverless Function: GET /api/profile/[username]
 // Scrapes ONLY PUBLIC info; extracts emails/phones if the user posted them publicly.
 
 import chromium from "@sparticuz/chromium-min";
 import puppeteer from "puppeteer-core";
 
-// ---- Vercel Function Config (no vercel.json required) ----
+// ---- Vercel Function Config ----
 export const config = {
-  runtime: "nodejs22.x",   // or "nodejs20.x" if you prefer
   memory: 1024,
   maxDuration: 60
 };
@@ -17,7 +16,7 @@ const PHONE_RE = /(?:\+?\d[\d()\-\s]{7,}\d)/g;
 const uniq = (arr) => [...new Set(arr.filter(Boolean))];
 const normalizePhone = (s) => s.replace(/[^\d+]/g, "");
 
-// Optional: protect the endpoint
+// Optional: protect the endpoint with a token
 function checkAuth(req) {
   const required = process.env.IG_OSINT_TOKEN || "";
   if (!required) return true;
@@ -165,8 +164,15 @@ export default async function handler(req, res) {
     });
   } catch (err) {
     console.error("IG OSINT error:", err);
-    res.status(503).json({ ok: false, error: "Fetch failed (private profile, rate-limited, or layout changed)" });
+    res.status(503).json({
+      ok: false,
+      error: "Fetch failed (private profile, rate-limited, or layout changed)"
+    });
   } finally {
-    if (browser) try { await browser.close(); } catch {}
+    if (browser) {
+      try {
+        await browser.close();
+      } catch {}
+    }
   }
-                         }
+}
